@@ -1,0 +1,18 @@
+public class ParkingExam {
+		public static void main(String[] args) {
+			
+			Parking p1 = new Parking();
+
+
+			for (int j = 0; j < (p1.carNoArr).length; j++){
+				p1.input();
+				if(p1.breakData == 1) {
+					break;
+				}
+				p1.calculation();
+				p1.save(j);
+			}
+			
+			p1.check();
+	}
+}
