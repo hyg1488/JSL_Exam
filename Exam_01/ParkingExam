@@ -3,16 +3,18 @@ public class ParkingExam {
 			
 			Parking p1 = new Parking();
 
-
-			for (int j = 0; j < (p1.carNoArr).length; j++){
+			for (int j = 0; j < (p1.carNoArr).length;){
 				p1.input();
 				if(p1.breakData == 1) {
 					break;
-				}
+					}
+				p1.checkParkingTime(); //24시간 이상일때 사용할 매소드
 				p1.calculation();
 				p1.save(j);
+				j = p1.savePoint; // 매소드에서 카운트한 변수를 j 값에 적용
 			}
 			
 			p1.check();
 	}
 }
+
