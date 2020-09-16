@@ -1,0 +1,71 @@
+import java.util.Scanner;
+
+public class Parking {
+	
+	Scanner sc = new Scanner(System.in);
+
+	String carNo;
+	int parkTime;
+	int money;
+	int mok;
+	int breakData = 0;
+	
+	String [] carNoArr = new String[100];
+	int [] parkTimeArr = new int [100];
+	int [] moneyArr = new int [100];
+	
+	public Parking() {
+		
+	}
+	
+	public void input() {
+		System.out.print("주차 정보 : ");
+		carNo = sc.next();
+		if(carNo.equals("0000")) {
+			breakData = 1;
+		}
+		else {
+		parkTime = sc.nextInt();
+		if(parkTime>1440) {
+			System.out.println("최대 주차가능 시간은 24시간 입니다. 주차 시간을 다시 확인해 주세요.");
+		}
+		}
+		
+	}
+	
+	
+	public void calculation() {
+		
+		if(parkTime <10) {
+			money = 0;
+		}
+		else if(parkTime <30) {
+			money = 500;
+		}
+		else if(parkTime>30) {
+			mok = (parkTime%10 == 0 ? 0:1);
+			money = 500+((((parkTime-30)/10)+mok)*500);
+			if(money>30000) {
+				money = 30000;
+			}
+		}
+	}
+	
+	
+	public void save(int cnt) {
+		carNoArr[cnt] = carNo;
+		parkTimeArr[cnt] = parkTime;
+		moneyArr[cnt] = money;
+	}
+	
+	public void check() {
+		System.out.println();
+		System.out.println("차량번호\t 주차시간\t\t주차요금");
+		for (int i = 0; i < carNoArr.length; i++) {
+			if(carNoArr[i] == null) {
+				break;
+			}
+			System.out.println(carNoArr[i]+"\t"+parkTimeArr[i]+"분 ("+(parkTimeArr[i]/60)+" 시간 "+(parkTimeArr[i]%60)+"분)\t"+moneyArr[i]+"원");
+			}
+		}
+}
