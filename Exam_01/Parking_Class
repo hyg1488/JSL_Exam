@@ -7,8 +7,12 @@ public class Parking {
 	String carNo;
 	int parkTime;
 	int money;
+	
+	
 	int mok;
 	int breakData = 0;
+	int timeover = 0;
+	int savePoint = 0; // 24시간 이상일때 사용하는 변수
 	
 	String [] carNoArr = new String[100];
 	int [] parkTimeArr = new int [100];
@@ -27,12 +31,19 @@ public class Parking {
 		else {
 		parkTime = sc.nextInt();
 		if(parkTime>1440) {
-			System.out.println("최대 주차가능 시간은 24시간 입니다. 주차 시간을 다시 확인해 주세요.");
-		}
+			timeover = 1;
+			}
 		}
 		
 	}
 	
+	public void checkParkingTime() {
+		if (timeover == 1) {
+			System.out.println("최대 주차가능 시간은 24시간 입니다. 주차 시간을 다시 확인해 주세요.");
+			savePoint --; //문제가 발생했으므로 배열 저장을 다시하도록 값을 변경
+			timeover = 0;
+		}
+	}
 	
 	public void calculation() {
 		
@@ -56,16 +67,19 @@ public class Parking {
 		carNoArr[cnt] = carNo;
 		parkTimeArr[cnt] = parkTime;
 		moneyArr[cnt] = money;
+		savePoint++; // 카운트를 올리면서 주차 시간에 문제가없으면 j값과 동일하게 카운트
 	}
 	
 	public void check() {
 		System.out.println();
-		System.out.println("차량번호\t 주차시간\t\t주차요금");
+		System.out.println("자동차번호\t\t"
+				+ "  주차시간\t\t"+ "주차요금");
 		for (int i = 0; i < carNoArr.length; i++) {
 			if(carNoArr[i] == null) {
 				break;
 			}
-			System.out.println(carNoArr[i]+"\t"+parkTimeArr[i]+"분 ("+(parkTimeArr[i]/60)+" 시간 "+(parkTimeArr[i]%60)+"분)\t"+moneyArr[i]+"원");
+			System.out.println(carNoArr[i]+"\t    "
+					+ ""+parkTimeArr[i]+"분 ("+(parkTimeArr[i]/60)+" 시간 "+(parkTimeArr[i]%60)+"분)\t"+moneyArr[i]+"원");
 			}
 		}
 }
