@@ -1,0 +1,63 @@
+package sawon;
+
+import java.util.Scanner;
+
+// 사원객체 저장용 최대 10명
+// 필요한 계산 (각종 처리)
+public class sawonData {
+	static sawon [] sw = new sawon[10];
+	
+	Scanner sc = new Scanner(System.in);
+	int count = -1;
+	int totalMoney = 0;
+	int checkMoney = 0;
+	int endcount = 0;
+	
+	int checkCount = 0; // 사원 공백 관련 체크
+	int savePoint = 0;
+	
+	public int sawonLength() {
+		return sw.length;
+	}
+	
+	public void sawonPrint (int i) {
+		count++;
+		if(i>=1) {
+			if(sw[i-1].getDepartment().equals(sw[i].getDepartment())){
+				sw[i].setDepartment(" ");
+				checkCount ++;
+			}
+			else if(sw[i-1].getDepartment().equals(" ")) {
+				if(sw[i-1-checkCount].getDepartment().equals(sw[i].getDepartment())){
+					sw[i].setDepartment(" ");
+					checkCount++;
+				}
+				else {
+					ch(i);
+				}
+			}
+			else {
+				ch(i);
+
+			}
+		}
+	}
+	
+	public void sawonPay () {
+		System.out.println("총합계\t\t\t"+totalMoney);
+	}
+	
+	public void ch(int i) {
+		int s = 0;
+		for (int j = savePoint; s< count; s++) {
+			checkMoney += sw[j].getMoney();
+			j++;
+		}
+		savePoint = i;
+		System.out.println("합계\t\t\t"+checkMoney);
+		totalMoney += checkMoney;
+		checkMoney = 0;
+		count = 0;
+		checkCount = 0;
+	}
+}
