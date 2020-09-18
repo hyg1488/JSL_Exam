@@ -1,0 +1,55 @@
+package sawon;
+
+public class sawon {
+	String department;
+	private int number;
+	private String name;
+	private int money;
+	
+	public sawon() {
+		
+	}
+	
+	public sawon(String a) {
+		this.department = a;
+	}
+	public sawon(String bun,int b, String c, int m) {
+		this.department = bun;
+		this.number = b;
+		this.name = c;
+		this.money = m;
+		
+	}
+	
+	static void ppp (String a, int b, String c, int d) {
+		
+	}
+	
+	public String getDepartment() {
+		return department;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getMoney() {
+		return money;
+	}
+	public void setMoney(int money) {
+		this.money = money;
+	}
+	
+	
+	
+}
