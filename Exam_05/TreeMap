@@ -1,0 +1,103 @@
+package Test;
+
+import java.util.*;
+
+
+
+/*	키보드로 번호, 이름, 점수를 입력받아서 학생객체를 생성. TreeMap 저장 후 출력
+ * 	입력 : 1,홍길동,95
+ * 	입력 : 7,김자바,88
+ * 	.	.	.	.
+ * 	입력 : 0	-> 출력 후 종료
+ * 	동일한 번호 입력 시 "이미 등록된 번호입니다." 경고 출력
+ * 	출력(번호순으로 출력)
+ * 	번호	이름	점수
+ * 	.	.	.
+ * 	총점		XXX
+ * 	평균		XXX.XX
+ * 	최대점수 학생
+ * 	번호: xx	이름: xxx		점수 : xxx
+ * 	최소점수 학생
+ * 	번호: xx	이름: xxx		점수 : xxx
+ */
+
+public class Exam_02 {
+	public static void main(String[] args) {
+		TreeMap map = new TreeMap();
+		Scanner sc = new Scanner(System.in);
+		Student maxVal = null; 
+		Student minVal = null; 
+		double max = -1;
+		double min = 101;
+		double sum = 0;
+		double ave;
+		int cnt = 0;
+		while(true) {
+			System.out.print("입력 : ");
+			String in = sc.next();
+			if(in.equals("0")) {
+				break;
+			}
+			String[] input = in.split(",");
+			if(input.length !=3) {
+				System.out.println("! 입력 오류 !(데이터 개수 부족)정확하게 3자리 값을 다시 입력하세요!");
+				continue;
+			}
+			
+			int num = Integer.parseInt(input[0]);
+			String name = input[1];
+			double score= Double.parseDouble(input[2]);
+			map.put(new Student(num,name),score);
+			sum += score;
+			cnt++;
+			
+			if(score>max) {
+				max = score;
+				maxVal = new Student(num,name);
+			}
+			
+			if(min>score) {
+				min = score;
+				minVal = new Student(num,name);
+			}
+		}
+		
+		System.out.println("번호\t이름\t점수");
+		Set <Student> set = map.keySet();
+		Iterator<Student> it = set.iterator();
+		while(it.hasNext()) {
+			Student s = it.next();
+			System.out.println(s+"\t"+map.get(s));
+		}
+		
+		ave = Math.round((sum/cnt)*100)/100.0;
+		
+		System.out.println("총점 :\t"+sum);
+		System.out.println("평균 :\t"+ave);
+		System.out.println("최고 점수 학생");
+		System.out.println(maxVal+"\t"+map.get(maxVal));
+		System.out.println("최저 점수 학생");
+		System.out.println(minVal+"\t"+map.get(minVal));
+		
+	}
+}
+
+class Student implements Comparable<Student>{
+	private int num;
+	private String name;
+	
+	Student(){}
+	Student(int num,String name){
+		this.num = num;
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return num+"\t"+name;
+	}
+	@Override
+	public int compareTo(Student s) {
+		return Integer.compare(num, s.num);
+	}
+}
